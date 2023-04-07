@@ -3,13 +3,18 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-
     try {
       const params = {
         submit_type: "pay",
         mode: "payment",
         payment_method_types: ["card"],
         billing_address_collection: "auto",
+        shipping_address_collection: {
+          allowed_countries: ["BR"],
+        },
+        phone_number_collection: {
+          enabled: true,
+        },
         shipping_options: [
           { shipping_rate: "shr_1LnZaXLBJBQFFt8EGlEgaATj" },
           { shipping_rate: "shr_1LnZbnLBJBQFFt8EjmaitIBc" },
